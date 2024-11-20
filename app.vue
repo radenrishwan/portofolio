@@ -36,4 +36,14 @@ import ScrollProgress from "~/components/index/ScrollProgress.vue";
   height: 100dvh;
   scroll-snap-align: start;
 }
+
+@media (max-width: 768px) {
+  .scroll-container {
+    scroll-snap-type: none;
+  }
+
+  .scroll-section {
+    scroll-snap-align: none;
+  }
+}
 </style>

@@ -51,27 +51,32 @@ const portofolios: Portofolio[] = [
 
 <template>
   <section id="portofolio">
-    <div class="portfolio-grid">
-      <a
-        v-for="(portofolio, index) in portofolios"
-        :key="index"
-        :href="portofolio.link"
-        target="_blank"
-        class="portfolio-item"
-      >
-        <div class="content">
-          <div class="header">
-            <h3>{{ portofolio.title }}</h3>
-            <Github class="github-icon" />
+    <div>
+      <div class="portfolio-grid">
+        <a
+          v-for="(portofolio, index) in portofolios"
+          :key="index"
+          :href="portofolio.link"
+          target="_blank"
+          class="portfolio-item"
+        >
+          <div class="content">
+            <div class="header">
+              <h3>{{ portofolio.title }}</h3>
+              <Github class="github-icon" />
+            </div>
+            <p>{{ portofolio.description }}</p>
+            <div class="tags">
+              <span v-for="tag in portofolio.tags" :key="tag" class="tag">
+                {{ tag }}
+              </span>
+            </div>
           </div>
-          <p>{{ portofolio.description }}</p>
-          <div class="tags">
-            <span v-for="tag in portofolio.tags" :key="tag" class="tag">
-              {{ tag }}
-            </span>
-          </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      <div class="more-portfolio">
+        <button class="more-portfolio-button">More Portfolio</button>
+      </div>
     </div>
   </section>
 </template>
@@ -152,6 +157,25 @@ p {
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
   font-size: 0.8rem;
+}
+
+.more-portfolio {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.more-portfolio-button {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.more-portfolio-button:hover {
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

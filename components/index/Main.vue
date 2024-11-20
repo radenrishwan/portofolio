@@ -1,8 +1,36 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import Github from "~/assets/icons/Github.vue";
 import Linkedin from "~/assets/icons/Linkedin.vue";
 import X from "~/assets/icons/Twitter.vue";
 import Mail from "~/assets/icons/Mail.vue";
+
+const wordsArray = [
+  "Golang",
+  "Dart",
+  "Javascript",
+  "Typescript",
+  "Rust",
+  "V",
+  "Kotlin",
+  "PHP",
+  "Docker",
+  "Linux",
+];
+
+const words = ref([]);
+
+onMounted(() => {
+  words.value = wordsArray.map((word) => {
+    return {
+      text: word,
+      top: Math.random() * 80 + 10 + "%", // Avoid edges
+      left: Math.random() * 75 + 10 + "%",
+      animationDelay: Math.random() * 5 + "s",
+      animationDuration: Math.random() * 10 + 5 + "s",
+    };
+  });
+});
 </script>
 
 <template>
@@ -38,11 +66,28 @@ import Mail from "~/assets/icons/Mail.vue";
         </a>
       </li>
     </ul>
+
+    <div class="floating-words-container">
+      <span
+        v-for="(word, index) in words"
+        :key="index"
+        class="floating-word"
+        :style="{
+          top: word.top,
+          left: word.left,
+          animationDelay: word.animationDelay,
+          animationDuration: word.animationDuration,
+        }"
+      >
+        {{ word.text }}
+      </span>
+    </div>
   </main>
 </template>
 
 <style scoped>
 .main-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,6 +167,48 @@ import Mail from "~/assets/icons/Mail.vue";
 @media (max-width: 480px) {
   .social-links {
     gap: 1.5rem;
+  }
+}
+
+/* floating effect */
+.floating-words-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-word {
+  position: absolute;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.5s;
+  animation: float 15s infinite;
+}
+
+.main-content:hover .floating-word {
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-20px, -30px) scale(1.2);
+  }
+  50% {
+    transform: translate(30px, 20px) scale(1);
+  }
+  75% {
+    transform: translate(-10px, 30px) scale(0.8);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
   }
 }
 </style>
