@@ -16,16 +16,46 @@ const wordsArray = [
   "PHP",
   "Docker",
   "Linux",
+  "GCP",
+  "AWS",
+  "Flutter",
+  "Jetpack Compose",
+  "Deno",
+  "Bun",
+  "Node",
+  "React",
+  "Vue",
+  "NextJS",
+  "NuxtJS",
 ];
 
 const words = ref([]);
 
 onMounted(() => {
   words.value = wordsArray.map((word) => {
+    let top = Math.random() * 80 + 10 + "%";
+    let left = Math.random() * 70 + 10 + "%";
+    let positionCorrect = false;
+
+    // reposition when the word is placed in the center
+    while (!positionCorrect) {
+      if (
+        parseFloat(top) > 30 &&
+        parseFloat(top) < 70 &&
+        parseFloat(left) > 30 &&
+        parseFloat(left) < 70
+      ) {
+        top = Math.random() * 80 + 10 + "%";
+        left = Math.random() * 75 + 10 + "%";
+      } else {
+        positionCorrect = true;
+      }
+    }
+
     return {
       text: word,
-      top: Math.random() * 80 + 10 + "%", // Avoid edges
-      left: Math.random() * 75 + 10 + "%",
+      top: top,
+      left: left,
       animationDelay: Math.random() * 5 + "s",
       animationDuration: Math.random() * 10 + 5 + "s",
     };
@@ -189,6 +219,10 @@ onMounted(() => {
   transition: opacity 0.5s;
   animation: float 15s infinite;
 }
+
+/* .floating-word:hover {
+  /* opacity: 1;
+} */
 
 .main-content:hover .floating-word {
   opacity: 0.7;
