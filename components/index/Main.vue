@@ -29,35 +29,49 @@ const wordsArray = [
   "NuxtJS",
 ];
 
+const generateWordPosition = () => {
+  let top = Math.random() * 80 + 10 + "%";
+  let left = Math.random() * 75 + 10 + "%";
+  let positionCorrect = false;
+
+  while (!positionCorrect) {
+    if (
+      parseFloat(top) > 20 &&
+      parseFloat(top) < 70 &&
+      parseFloat(left) > 20 &&
+      parseFloat(left) < 70
+    ) {
+      top = Math.random() * 80 + 10 + "%";
+      left = Math.random() * 75 + 10 + "%";
+    } else {
+      positionCorrect = true;
+    }
+  }
+
+  return {
+    top,
+    left,
+    animationDelay: Math.random() * 5 + "s",
+    animationDuration: Math.random() * 10 + 5 + "s",
+  };
+};
+
 const words = ref([]);
+
+const repositionWord = (index) => {
+  const newPosition = generateWordPosition();
+  words.value[index] = {
+    ...words.value[index],
+    ...newPosition,
+  };
+};
 
 onMounted(() => {
   words.value = wordsArray.map((word) => {
-    let top = Math.random() * 80 + 10 + "%";
-    let left = Math.random() * 75 + 10 + "%";
-    let positionCorrect = false;
-
-    // reposition when the word is placed in the center
-    while (!positionCorrect) {
-      if (
-        parseFloat(top) > 20 &&
-        parseFloat(top) < 70 &&
-        parseFloat(left) > 20 &&
-        parseFloat(left) < 70
-      ) {
-        top = Math.random() * 80 + 10 + "%";
-        left = Math.random() * 75 + 10 + "%";
-      } else {
-        positionCorrect = true;
-      }
-    }
-
+    const position = generateWordPosition();
     return {
       text: word,
-      top: top,
-      left: left,
-      animationDelay: Math.random() * 5 + "s",
-      animationDuration: Math.random() * 10 + 5 + "s",
+      ...position,
     };
   });
 });
@@ -108,6 +122,7 @@ onMounted(() => {
           animationDelay: word.animationDelay,
           animationDuration: word.animationDuration,
         }"
+        @click="repositionWord(index)"
       >
         {{ word.text }}
       </span>
@@ -216,8 +231,13 @@ onMounted(() => {
   font-size: 1.2rem;
   color: var(--accent-color);
   opacity: 0;
-  transition: opacity 0.5s;
+  transition:
+    opacity 0.5s,
+    top 0.5s,
+    left 0.5s;
   animation: float 15s infinite;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 /* .floating-word:hover {
