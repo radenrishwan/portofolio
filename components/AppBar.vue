@@ -14,7 +14,6 @@ const updateActiveSection = () => {
     (scrollPosition + sectionHeight / 2) / sectionHeight,
   );
 
-  // Map index to section IDs
   const sections = ["profile", "portfolio", "articles", "contact"];
   activeSection.value = sections[currentSection];
 };
@@ -49,7 +48,10 @@ const scrollToSection = (sectionId) => {
 </script>
 
 <template>
-  <nav class="navbar">
+  <nav
+    class="navbar"
+    :class="{ 'navbar-scrolled': activeSection !== 'profile' }"
+  >
     <SecondLogo class="navbar-logo" />
     <ul class="navbar-menu">
       <li>
@@ -100,13 +102,17 @@ const scrollToSection = (sectionId) => {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(26, 26, 26, 0.8); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Blur effect for the background */
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .navbar-menu {

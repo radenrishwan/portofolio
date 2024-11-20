@@ -34,15 +34,15 @@ const words = ref([]);
 onMounted(() => {
   words.value = wordsArray.map((word) => {
     let top = Math.random() * 80 + 10 + "%";
-    let left = Math.random() * 70 + 10 + "%";
+    let left = Math.random() * 75 + 10 + "%";
     let positionCorrect = false;
 
     // reposition when the word is placed in the center
     while (!positionCorrect) {
       if (
-        parseFloat(top) > 30 &&
+        parseFloat(top) > 20 &&
         parseFloat(top) < 70 &&
-        parseFloat(left) > 30 &&
+        parseFloat(left) > 20 &&
         parseFloat(left) < 70
       ) {
         top = Math.random() * 80 + 10 + "%";
