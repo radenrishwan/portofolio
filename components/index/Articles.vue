@@ -83,8 +83,8 @@ const articles: Articles[] = [
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   width: 100%;
-  max-width: 1200px; /* Adjust as needed */
-  margin-bottom: 2rem; /* Add margin to separate from the button */
+  max-width: 1200px;
+  margin-bottom: 2rem;
 }
 
 .article-card {
@@ -105,7 +105,7 @@ const articles: Articles[] = [
 
 .article-image {
   width: 100%;
-  height: 200px; /* Adjust as needed */
+  height: 200px;
   object-fit: cover;
 }
 

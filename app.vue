@@ -2,10 +2,13 @@
 import Main from "~/components/index/Main.vue";
 import Portofolio from "~/components/index/Portofolio.vue";
 import Articles from "~/components/index/Articles.vue";
+import Contact from "~/components/index/Contact.vue";
+import ScrollProgress from "~/components/index/ScrollProgress.vue";
 </script>
 
 <template>
   <AppBar />
+  <ScrollProgress />
   <div class="scroll-container">
     <section class="scroll-section">
       <Main />
@@ -15,6 +18,9 @@ import Articles from "~/components/index/Articles.vue";
     </section>
     <section class="scroll-section">
       <Articles />
+    </section>
+    <section class="scroll-section">
+      <Contact />
     </section>
   </div>
 </template>

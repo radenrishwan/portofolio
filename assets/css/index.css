@@ -78,3 +78,28 @@ ul {
   animation: wave 2.5s infinite;
   transform-origin: 70% 70%;
 }
+
+@keyframes rolling {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+  25% {
+    transform: translateX(10px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(0) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-10px) rotate(270deg);
+  }
+  100% {
+    transform: translateX(0) rotate(360deg);
+  }
+}
+
+.rolling-emoji {
+  display: inline-block;
+  animation: rolling 3.5s infinite;
+  animation-delay: 10s;
+  transform-origin: 70% 70%;
+}
