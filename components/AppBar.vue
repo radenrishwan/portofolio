@@ -3,9 +3,11 @@ import { ref, onMounted, onUnmounted } from "vue";
 import SecondLogo from "~/assets/SecondLogo.vue";
 
 const activeSection = ref("profile");
-const currentFont = ref("Host Grotesk");
+const currentFont = ref("Doto");
+const isDropdownOpen = ref(false);
 
 const navbarMenu = ["profile", "project", "articles", "contact"];
+const fontMenu = ["Doto", "Host Grotesk", "Anton SC"];
 
 const updateActiveSection = () => {
   const container = document.querySelector(".scroll-container");
@@ -25,11 +27,24 @@ const changeFont = (fontFamily) => {
   currentFont.value = fontFamily;
 };
 
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const closeDropdown = (event) => {
+  const dropdown = document.querySelector(".font-switcher");
+  if (dropdown && !dropdown.contains(event.target)) {
+    isDropdownOpen.value = false;
+  }
+};
+
 onMounted(() => {
   const container = document.querySelector(".scroll-container");
   if (container) {
     container.addEventListener("scroll", updateActiveSection);
   }
+
+  document.addEventListener("click", closeDropdown);
 });
 
 onUnmounted(() => {
@@ -37,6 +52,8 @@ onUnmounted(() => {
   if (container) {
     container.removeEventListener("scroll", updateActiveSection);
   }
+
+  document.removeEventListener("click", closeDropdown);
 });
 
 const scrollToSection = (sectionId) => {
@@ -72,24 +89,20 @@ const scrollToSection = (sectionId) => {
     </ul>
     <div class="navbar-actions">
       <div class="font-switcher">
-        <button
-          @click="changeFont('Host Grotesk')"
-          :class="{ active: currentFont === 'Host Grotesk' }"
-        >
-          Host
+        <button class="dropdown-toggle" @click="toggleDropdown">
+          {{ currentFont }}
+          <span class="arrow" :class="{ 'arrow-up': isDropdownOpen }">▼</span>
         </button>
-        <button
-          @click="changeFont('Doto')"
-          :class="{ active: currentFont === 'Doto' }"
-        >
-          Doto
-        </button>
-        <button
-          @click="changeFont('Anton SC')"
-          :class="{ active: currentFont === 'Anton SC' }"
-        >
-          Anton
-        </button>
+        <ul class="dropdown-menu" v-show="isDropdownOpen">
+          <li
+            v-for="font in fontMenu"
+            :key="font"
+            @click="changeFont(font)"
+            :class="{ active: currentFont === font }"
+          >
+            {{ font }}
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -161,11 +174,10 @@ const scrollToSection = (sectionId) => {
 }
 
 .font-switcher {
-  display: flex;
-  gap: 0.5rem;
+  position: relative;
 }
 
-.font-switcher button {
+.dropdown-toggle {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
@@ -173,14 +185,48 @@ const scrollToSection = (sectionId) => {
   color: var(--text-color);
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.font-switcher button:hover {
+.dropdown-toggle:hover {
+  background: var(--hover-background);
+}
+
+.arrow {
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+
+.arrow-up {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--card-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu li:hover {
   background: var(--hover-background);
   color: var(--accent-color);
 }
 
-.font-switcher button.active {
+.dropdown-menu li.active {
   background: var(--accent-color);
   color: var(--background-color);
 }
@@ -195,11 +241,16 @@ const scrollToSection = (sectionId) => {
     gap: 2rem;
   }
 
-  .font-switcher {
-    gap: 0.25rem;
+  .dropdown-toggle {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
   }
 
-  .font-switcher button {
+  .dropdown-menu {
+    min-width: 100px;
+  }
+
+  .dropdown-menu li {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
   }

@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: "Host Grotesk", "Doto", "Anton SC";
+  font-family: "Doto", "Host Grotesk", "Anton SC";
   background: var(--background-color);
   color: var(--text-color);
 }
@@ -100,4 +100,19 @@ ul {
   animation: rolling 3.5s infinite;
   animation-delay: 10s;
   transform-origin: 70% 70%;
+}
+
+.button-link {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-link:hover {
+  color: var(--primary-color);
 }

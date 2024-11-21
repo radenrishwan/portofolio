@@ -62,7 +62,7 @@ const articles: Articles[] = [
         </article>
       </div>
       <div class="more-articles">
-        <button class="more-articles-button">More Articles</button>
+        <a class="button-link" href="/">More Articles</a>
       </div>
     </div>
   </section>
@@ -73,7 +73,7 @@ const articles: Articles[] = [
   min-height: 100dvh;
   padding: 2rem;
   display: flex;
-  flex-direction: column; /* Allow stacking of content */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -140,20 +140,6 @@ const articles: Articles[] = [
 
 .more-articles {
   text-align: center;
-  margin-top: 2rem; /* Space above the button */
-}
-
-.more-articles-button {
-  background: none;
-  border: none;
-  color: var(--accent-color);
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.more-articles-button:hover {
-  color: var(--primary-color); /* Change color on hover for visual feedback */
+  margin-top: 2rem;
 }
 </style>

@@ -8,7 +8,7 @@ type Portofolio = {
   tags: string[];
 };
 
-const portofolios: Portofolio[] = [
+const projects: Portofolio[] = [
   {
     title: "markdown parser",
     description: "A dynamic markdown parser build using Golang",
@@ -50,39 +50,44 @@ const portofolios: Portofolio[] = [
 </script>
 
 <template>
-  <section id="portofolio">
+  <section id="project">
     <div>
-      <div class="portfolio-grid">
+      <div class="project-grid">
         <a
-          v-for="(portofolio, index) in portofolios"
+          v-for="(project, index) in projects"
           :key="index"
-          :href="portofolio.link"
+          :href="project.link"
           target="_blank"
-          class="portfolio-item"
+          class="project-item"
         >
           <div class="content">
             <div class="header">
-              <h3>{{ portofolio.title }}</h3>
+              <h3>{{ project.title }}</h3>
               <Github class="github-icon" />
             </div>
-            <p>{{ portofolio.description }}</p>
+            <p>{{ project.description }}</p>
             <div class="tags">
-              <span v-for="tag in portofolio.tags" :key="tag" class="tag">
+              <span v-for="tag in project.tags" :key="tag" class="tag">
                 {{ tag }}
               </span>
             </div>
           </div>
         </a>
       </div>
-      <div class="more-portfolio">
-        <button class="more-portfolio-button">More Portfolio</button>
+      <div class="more-project">
+        <a
+          class="button-link"
+          target="_blank"
+          href="https://github.com/radenrishwan?tab=repositories"
+          >More Project</a
+        >
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-#portofolio {
+#project {
   min-height: 100dvh;
   width: 100dvw;
   padding: 2rem;
@@ -91,7 +96,7 @@ const portofolios: Portofolio[] = [
   align-items: center;
 }
 
-.portfolio-grid {
+.project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
@@ -99,7 +104,7 @@ const portofolios: Portofolio[] = [
   margin: 0 auto;
 }
 
-.portfolio-item {
+.project-item {
   background-color: var(--card-color);
   border-radius: 8px;
   padding: 1.5rem;
@@ -108,7 +113,7 @@ const portofolios: Portofolio[] = [
   color: var(--text-color);
 }
 
-.portfolio-item:hover {
+.project-item:hover {
   transform: translateY(-5px);
 }
 
@@ -129,7 +134,7 @@ const portofolios: Portofolio[] = [
   transition: color 0.2s ease;
 }
 
-.portfolio-item:hover .github-icon {
+.project-item:hover .github-icon {
   color: var(--accent-color);
 }
 
@@ -159,37 +164,27 @@ p {
   font-size: 0.8rem;
 }
 
-.more-portfolio {
+.more-project {
   text-align: center;
   margin-top: 2rem;
 }
 
-.more-portfolio-button {
-  background: none;
-  border: none;
-  color: var(--accent-color);
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.more-portfolio-button:hover {
+.more-project-button:hover {
   color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
-  .portfolio-grid {
+  .project-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  #portofolio {
+  #project {
     padding: 1rem;
   }
 
-  .portfolio-grid {
+  .project-grid {
     grid-template-columns: 1fr;
   }
 }

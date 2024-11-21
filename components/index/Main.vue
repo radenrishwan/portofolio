@@ -25,6 +25,7 @@ const wordsArray = [
   "Node",
   "React",
   "Vue",
+  "Laravel",
 ];
 
 const generateWordPosition = () => {
