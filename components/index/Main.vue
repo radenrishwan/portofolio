@@ -77,7 +77,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="main-content">
+  <main class="main-content" id="profile">
     <div class="intro">
       <h1 class="greeting">
         Hello

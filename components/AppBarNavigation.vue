@@ -2,33 +2,11 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import SecondLogo from "~/assets/SecondLogo.vue";
 
-const activeSection = ref("profile");
 const currentFont = ref("Doto");
 const isDropdownOpen = ref(false);
 
 const navbarMenu = ["profile", "project", "articles", "contact"];
 const fontMenu = ["Doto", "Host Grotesk", "Anton SC"];
-
-const handleHashChange = () => {
-  const hash = window.location.hash.slice(1); // Remove the # symbol
-  if (hash && navbarMenu.includes(hash)) {
-    activeSection.value = hash;
-    scrollToSection(hash);
-  }
-};
-
-const updateActiveSection = () => {
-  const container = document.querySelector(".scroll-container");
-  if (!container) return;
-
-  const scrollPosition = container.scrollTop;
-  const sectionHeight = container.clientHeight;
-  const currentSection = Math.floor(
-    (scrollPosition + sectionHeight / 2) / sectionHeight,
-  );
-
-  activeSection.value = navbarMenu[currentSection];
-};
 
 const changeFont = (fontFamily) => {
   document.body.style.fontFamily = fontFamily;
@@ -47,50 +25,16 @@ const closeDropdown = (event) => {
 };
 
 onMounted(() => {
-  const container = document.querySelector(".scroll-container");
-  if (container) {
-    container.addEventListener("scroll", updateActiveSection);
-  }
-
   document.addEventListener("click", closeDropdown);
-
-  window.addEventListener("hashchange", handleHashChange);
-  handleHashChange();
 });
 
 onUnmounted(() => {
-  const container = document.querySelector(".scroll-container");
-  if (container) {
-    container.removeEventListener("scroll", updateActiveSection);
-  }
-
   document.removeEventListener("click", closeDropdown);
-
-  window.removeEventListener("hashchange", handleHashChange);
 });
-
-const scrollToSection = (sectionId) => {
-  const container = document.querySelector(".scroll-container");
-  const sectionIndex = ["profile", "project", "articles", "contact"].indexOf(
-    sectionId,
-  );
-  if (container && sectionIndex !== -1) {
-    container.scrollTo({
-      top: sectionIndex * container.clientHeight,
-      behavior: "smooth",
-    });
-
-    history.pushState(null, null, `#${sectionId}`);
-    activeSection.value = sectionId;
-  }
-};
 </script>
 
 <template>
-  <nav
-    class="navbar"
-    :class="{ 'navbar-scrolled': activeSection !== 'profile' }"
-  >
+  <nav class="navbar">
     <SecondLogo
       class="navbar-logo"
       @click="$router.push('/')"
@@ -98,11 +42,7 @@ const scrollToSection = (sectionId) => {
     />
     <ul class="navbar-menu">
       <li v-for="item in navbarMenu" :key="item">
-        <a
-          :href="`#${item}`"
-          @click.prevent="scrollToSection(item)"
-          :class="{ active: activeSection === item }"
-        >
+        <a :href="`/#${item}`">
           {{ item.charAt(0).toUpperCase() + item.slice(1) }}
         </a>
       </li>
@@ -131,19 +71,16 @@ const scrollToSection = (sectionId) => {
 <style scoped>
 /* navbar section */
 .navbar {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 10000;
+  position: sticky;
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease;
-}
-
-.navbar-scrolled {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background: rgba(26, 26, 26, 0.8);
   backdrop-filter: blur(10px);
@@ -177,13 +114,11 @@ const scrollToSection = (sectionId) => {
   transform: translateX(-50%);
 }
 
-.navbar-menu li a:hover,
-.navbar-menu li a.active {
+.navbar-menu li a:hover {
   color: var(--accent-color);
 }
 
-.navbar-menu li a:hover::after,
-.navbar-menu li a.active::after {
+.navbar-menu li a:hover::after {
   width: 100%;
 }
 

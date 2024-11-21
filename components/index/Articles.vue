@@ -62,7 +62,7 @@ const articles: Articles[] = [
         </article>
       </div>
       <div class="more-articles">
-        <a class="button-link" href="/">More Articles</a>
+        <a class="button-link" href="/articles">More Articles</a>
       </div>
     </div>
   </section>
