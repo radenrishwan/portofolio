@@ -5,6 +5,8 @@ import SecondLogo from "~/assets/SecondLogo.vue";
 const activeSection = ref("profile");
 const currentFont = ref("Host Grotesk");
 
+const navbarMenu = ["profile", "project", "articles", "contact"];
+
 const updateActiveSection = () => {
   const container = document.querySelector(".scroll-container");
   if (!container) return;
@@ -15,8 +17,7 @@ const updateActiveSection = () => {
     (scrollPosition + sectionHeight / 2) / sectionHeight,
   );
 
-  const sections = ["profile", "portfolio", "articles", "contact"];
-  activeSection.value = sections[currentSection];
+  activeSection.value = navbarMenu[currentSection];
 };
 
 const changeFont = (fontFamily) => {
@@ -40,7 +41,7 @@ onUnmounted(() => {
 
 const scrollToSection = (sectionId) => {
   const container = document.querySelector(".scroll-container");
-  const sectionIndex = ["profile", "portfolio", "articles", "contact"].indexOf(
+  const sectionIndex = ["profile", "project", "articles", "contact"].indexOf(
     sectionId,
   );
   if (container && sectionIndex !== -1) {
@@ -53,43 +54,19 @@ const scrollToSection = (sectionId) => {
 </script>
 
 <template>
-  <nav class="navbar">
+  <nav
+    class="navbar"
+    :class="{ 'navbar-scrolled': activeSection !== 'profile' }"
+  >
     <SecondLogo class="navbar-logo" />
     <ul class="navbar-menu">
-      <li>
+      <li v-for="item in navbarMenu" :key="item">
         <a
-          href="#profile"
-          @click.prevent="scrollToSection('profile')"
-          :class="{ active: activeSection === 'profile' }"
+          :href="`#${item}`"
+          @click.prevent="scrollToSection(item)"
+          :class="{ active: activeSection === item }"
         >
-          Profile
-        </a>
-      </li>
-      <li>
-        <a
-          href="#portfolio"
-          @click.prevent="scrollToSection('portfolio')"
-          :class="{ active: activeSection === 'portfolio' }"
-        >
-          Portfolio
-        </a>
-      </li>
-      <li>
-        <a
-          href="#articles"
-          @click.prevent="scrollToSection('articles')"
-          :class="{ active: activeSection === 'articles' }"
-        >
-          Articles
-        </a>
-      </li>
-      <li>
-        <a
-          href="#contact"
-          @click.prevent="scrollToSection('contact')"
-          :class="{ active: activeSection === 'contact' }"
-        >
-          Contact
+          {{ item.charAt(0).toUpperCase() + item.slice(1) }}
         </a>
       </li>
     </ul>
@@ -126,13 +103,17 @@ const scrollToSection = (sectionId) => {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(26, 26, 26, 0.8); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Blur effect for the background */
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 /* navbar menu section */
