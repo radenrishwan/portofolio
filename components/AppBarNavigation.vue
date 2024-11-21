@@ -5,7 +5,7 @@ import SecondLogo from "~/assets/SecondLogo.vue";
 const currentFont = ref("Doto");
 const isDropdownOpen = ref(false);
 
-const navbarMenu = ["profile", "project", "articles", "contact"];
+const navbarMenu = ["profile", "project", "articles", "timeline", "contact"];
 const fontMenu = ["Doto", "Host Grotesk", "Anton SC"];
 
 const changeFont = (fontFamily) => {

@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
 const activeSection = ref(0);
-const sections = ["Main", "Portfolio", "Articles", "Contact"];
+const sections = ["Main", "Portfolio", "Articles", "Timeline", "Contact"];
 
 const updateActiveSection = () => {
   const container = document.querySelector(".scroll-container");

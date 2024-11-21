@@ -6,7 +6,7 @@ const activeSection = ref("profile");
 const currentFont = ref("Doto");
 const isDropdownOpen = ref(false);
 
-const navbarMenu = ["profile", "project", "articles", "contact"];
+const navbarMenu = ["profile", "project", "articles", "timeline", "contact"];
 const fontMenu = ["Doto", "Host Grotesk", "Anton SC"];
 
 const handleHashChange = () => {
@@ -71,9 +71,13 @@ onUnmounted(() => {
 
 const scrollToSection = (sectionId) => {
   const container = document.querySelector(".scroll-container");
-  const sectionIndex = ["profile", "project", "articles", "contact"].indexOf(
-    sectionId,
-  );
+  const sectionIndex = [
+    "profile",
+    "project",
+    "articles",
+    "timeline",
+    "contact",
+  ].indexOf(sectionId);
   if (container && sectionIndex !== -1) {
     container.scrollTo({
       top: sectionIndex * container.clientHeight,

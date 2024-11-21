@@ -4,6 +4,7 @@ import Portofolio from "~/components/index/Portofolio.vue";
 import Articles from "~/components/index/Articles.vue";
 import Contact from "~/components/index/Contact.vue";
 import ScrollProgress from "~/components/index/ScrollProgress.vue";
+import Timeline from "~/components/index/Timeline.vue";
 </script>
 
 <template>
@@ -18,6 +19,9 @@ import ScrollProgress from "~/components/index/ScrollProgress.vue";
     </section>
     <section class="scroll-section">
       <Articles />
+    </section>
+    <section class="scroll-section">
+      <Timeline />
     </section>
     <section class="scroll-section">
       <Contact />
