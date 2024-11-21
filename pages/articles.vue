@@ -3,7 +3,7 @@
 // @ts-ignore
 const { data: articles } = await useAsyncData("articles", () => {
   // @ts-ignore
-  return queryContent().find();
+  return queryContent().sort({ pubDate: -1 }).find();
 });
 
 // Function to calculate read time based on content length
