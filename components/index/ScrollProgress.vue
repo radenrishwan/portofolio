@@ -29,6 +29,17 @@ onUnmounted(() => {
     container.removeEventListener("scroll", updateActiveSection);
   }
 });
+
+const scrollToSection = (index) => {
+  const container = document.querySelector(".scroll-container");
+  if (!container) return;
+
+  const sectionHeight = container.clientHeight;
+  container.scrollTo({
+    top: index * sectionHeight,
+    behavior: "smooth",
+  });
+};
 </script>
 
 <template>
@@ -37,6 +48,7 @@ onUnmounted(() => {
       v-for="(section, index) in sections"
       :key="index"
       class="progress-dot"
+      @click.prevent="scrollToSection(index)"
       :class="{ active: index === activeSection }"
       :title="section"
     >

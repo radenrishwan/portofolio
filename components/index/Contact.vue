@@ -3,7 +3,7 @@
 </template>
 
 <style scoped>
-.main-content {
+#contact {
   display: flex;
   align-items: center;
   justify-content: center;
