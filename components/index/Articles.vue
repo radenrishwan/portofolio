@@ -1,68 +1,61 @@
 <script setup lang="ts">
-type Articles = {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  tags: string[];
-};
+// @ts-ignore
+const { data: articles } = await useAsyncData("articles", () => {
+  // @ts-ignore
+  return queryContent().sort({ pubDate: -1 }).limit(3).find();
+});
 
-const articles: Articles[] = [
-  {
-    title: "HTTP Framework from scratch tanpa library",
-    description:
-      "bikin http framework kaya express js atau fiber tanpa library",
-    image:
-      "https://mohamadrishwan.vercel.app/_next/image?url=https%3A%2F%2Fthingstoday-3f186.web.app%2Fassets%2Fimg%2Fthumbnail%2Fcara-deploy-server-go-ke-cloud-run.png&w=640&q=75",
-    link: "https://mohamadrishwan.vercel.app/articles/cara-deploy-server-go-ke-cloud-run",
-    tags: ["golang", "http", "backend", "frontend"],
-  },
-  {
-    title: "Bikin script buat download lebih kenceng kaya IDM",
-    description: "bikin script kaya IDM pake metode parrarel download",
-    image:
-      "https://mohamadrishwan.vercel.app/_next/image?url=https%3A%2F%2Fthingstoday-3f186.web.app%2Fassets%2Fimg%2Fthumbnail%2Fcara-deploy-server-go-ke-cloud-run.png&w=640&q=75",
-    link: "https://mohamadrishwan.vercel.app/articles/cara-deploy-server-go-ke-cloud-run",
-    tags: ["golang", "http", "backend"],
-  },
-  {
-    title: "Nyobain serverless function di netlify pake Go",
-    description: "nyoba serverless function di netlify",
-    image:
-      "https://mohamadrishwan.vercel.app/_next/image?url=https%3A%2F%2Fthingstoday-3f186.web.app%2Fassets%2Fimg%2Fthumbnail%2Fcara-deploy-server-go-ke-cloud-run.png&w=640&q=75",
-    link: "https://mohamadrishwan.vercel.app/articles/cara-deploy-server-go-ke-cloud-run",
-    tags: ["golang", "http", "backend"],
-  },
-];
+const getReadTime = (content: string) => {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  const readTime = Math.ceil(wordCount / wordsPerMinute);
+  return readTime;
+};
 </script>
 
 <template>
   <section id="articles">
-    <div>
-      <div class="articles-grid">
+    <div class="articles-container">
+      <div class="articles-grid" v-if="articles">
         <article
           v-for="article in articles"
-          :key="article.title"
+          :key="article._id"
           class="article-card"
         >
-          <img
-            :src="article.image"
-            :alt="article.title"
-            class="article-image"
-          />
+          <div class="article-image">
+            <img :src="article.heroImage" :alt="article.title" />
+          </div>
+
           <div class="article-content">
-            <h3 class="article-title">{{ article.title }}</h3>
-            <p class="article-description">{{ article.description }}</p>
-            <div class="article-tags">
-              <span v-for="tag in article.tags" :key="tag" class="tag">
-                {{ tag }}
-              </span>
+            <div class="article-upper-content">
+              <div class="article-meta">
+                <span class="article-date">
+                  {{ new Date(article.pubDate).toLocaleDateString() }}
+                </span>
+                <span class="article-readtime">
+                  {{ getReadTime(article.short) }} min read
+                </span>
+              </div>
+
+              <h2 class="article-title">{{ article.title }}</h2>
+
+              <div class="article-tags">
+                <span v-for="tag in article.tags" :key="tag" class="tag">
+                  #{{ tag }}
+                </span>
+              </div>
+
+              <p class="article-description">{{ article.description }}</p>
             </div>
+
+            <NuxtLink :to="`/article/${article.slug}`" class="read-more">
+              Read more →
+            </NuxtLink>
           </div>
         </article>
       </div>
       <div class="more-articles">
-        <a class="button-link" href="/articles">More Articles</a>
+        <NuxtLink to="/articles" class="button-link">More Articles</NuxtLink>
       </div>
     </div>
   </section>
@@ -78,68 +71,129 @@ const articles: Articles[] = [
   align-items: center;
 }
 
+.articles-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
-  width: 100%;
-  max-width: 1200px;
   margin-bottom: 2rem;
 }
 
 .article-card {
-  background-color: var(--card-color);
-  border-radius: 10px;
+  background: var(--card-color);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  cursor: pointer;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .article-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .article-image {
   width: 100%;
   height: 200px;
+  overflow: hidden;
+}
+
+.article-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-image img {
+  transform: scale(1.05);
 }
 
 .article-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.5rem;
 }
 
 .article-title {
-  margin-bottom: 0.5rem;
-  color: var(--accent-color);
-}
-
-.article-description {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
   color: var(--text-color);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  line-height: 1.3;
 }
 
 .article-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin: 0.5rem 0;
 }
 
 .tag {
-  background-color: var(--hover-background);
+  background: var(--primary-color);
+  color: var(--background-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.875rem;
+}
+
+.article-description {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-upper-content {
+  flex-grow: 1;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 1rem;
   color: var(--accent-color);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  align-self: flex-start;
+}
+
+.read-more:hover {
+  color: var(--primary-color);
 }
 
 .more-articles {
   text-align: center;
   margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  #articles {
+    padding: 1rem;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

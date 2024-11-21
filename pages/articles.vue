@@ -1,12 +1,10 @@
 <script setup lang="ts">
-// Fetch all markdown files from content directory
 // @ts-ignore
 const { data: articles } = await useAsyncData("articles", () => {
   // @ts-ignore
   return queryContent().sort({ pubDate: -1 }).find();
 });
 
-// Function to calculate read time based on content length
 const getReadTime = (content: string) => {
   const wordsPerMinute = 200;
   const wordCount = content.split(/\s+/).length;

@@ -96,7 +96,10 @@ onMounted(() => {
         </a>
       </li>
       <li>
-        <a href="https://linkedin.com/in/yourusername" target="_blank">
+        <a
+          href="https://www.linkedin.com/in/raden-mohamad-rishwan-4b2328286/"
+          target="_blank"
+        >
           <Linkedin />
         </a>
       </li>
