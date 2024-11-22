@@ -30,6 +30,19 @@ const updateActiveSection = () => {
   activeSection.value = navbarMenu[currentSection];
 };
 
+const updateActiveSectionMobile = () => {
+  const scrollPosition = window.scrollY;
+  const profileHeight = document.querySelector("#profile")?.clientHeight || 0;
+
+  if (scrollPosition > profileHeight) {
+    activeSection.value = "project";
+
+    return;
+  }
+
+  activeSection.value = "profile";
+};
+
 const changeFont = (fontFamily) => {
   document.body.style.fontFamily = fontFamily;
   currentFont.value = fontFamily;
@@ -50,6 +63,10 @@ onMounted(() => {
   const container = document.querySelector(".scroll-container");
   if (container) {
     container.addEventListener("scroll", updateActiveSection);
+  }
+
+  if (window.innerWidth < 768) {
+    window.addEventListener("scroll", updateActiveSectionMobile);
   }
 
   document.addEventListener("click", closeDropdown);
