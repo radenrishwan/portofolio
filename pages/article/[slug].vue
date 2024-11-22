@@ -19,6 +19,39 @@ const formatDate = (date: string) => {
     day: "numeric",
   });
 };
+
+if (article.value) {
+  const keywords: string = article.value.tags.join(", ");
+
+  useHead({
+    title: article.value.title || "Raden Mohamad Rishwan",
+  });
+
+  useSeoMeta({
+    title: article.value.title || "Raden Mohamad Rishwan",
+    description:
+      article.value.description ||
+      "Articles that written by Raden Mohamad Rishwan",
+    ogTitle: "Raden Mohamad Rishwan",
+    ogDescription:
+      article.value.description ||
+      "Articles that written by Raden Mohamad Rishwan",
+    ogImage: article.value.heroImage || "https://i.ibb.co.com/gWjmQ8q/logo.png",
+    ogUrl: `https://mohamadrishwan.me/article/${slug}`,
+    twitterCard: "summary_large_image",
+    twitterTitle: "Raden Mohamad Rishwan",
+    twitterDescription:
+      article.value.description ||
+      "Articles that written by Raden Mohamad Rishwan",
+    twitterImage:
+      article.value.heroImage || "https://i.ibb.co.com/gWjmQ8q/logo.png",
+    twitterCreator: "@seioraswel",
+    author: "Raden Mohamad Rishwan",
+    keywords:
+      "Raden Mohamad Rishwan, Rishwan, Raden, Mohamad, Portfolio, Personal, Website, Projects, Articles, Timeline, Web Development, Mobile Development, Backend, Frontend, " +
+      keywords,
+  });
+}
 </script>
 
 <template>

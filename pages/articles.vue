@@ -4,6 +4,23 @@ const { data: articles } = await useAsyncData("articles", () => {
   // @ts-ignore
   return queryContent().sort({ pubDate: -1 }).find();
 });
+
+useSeoMeta({
+  title: "Raden Mohamad Rishwan",
+  description: "Articles that written by Raden Mohamad Rishwan",
+  ogTitle: "Raden Mohamad Rishwan",
+  ogDescription: "Articles that written by Raden Mohamad Rishwan",
+  ogImage: "https://i.ibb.co.com/gWjmQ8q/logo.png",
+  ogUrl: "https://mohamadrishwan.me",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Raden Mohamad Rishwan",
+  twitterDescription: "Articles that written by Raden Mohamad Rishwan",
+  twitterImage: "https://i.ibb.co.com/gWjmQ8q/logo.png",
+  twitterCreator: "@seioraswel",
+  author: "Raden Mohamad Rishwan",
+  keywords:
+    "Raden Mohamad Rishwan, Rishwan, Raden, Mohamad, Portfolio, Personal, Website, Projects, Articles, Timeline, Web Development, Mobile Development, Backend, Frontend",
+});
 </script>
 
 <template>

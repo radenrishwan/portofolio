@@ -10,4 +10,9 @@ export default defineNuxtConfig({
       langs: ["javascript", "typescript", "json", "bash", "dockerfile", "go"],
     },
   },
+  app: {
+    head: {
+      title: "Raden Mohamad Rishwan",
+    },
+  },
 });

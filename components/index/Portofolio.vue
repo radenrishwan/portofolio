@@ -144,7 +144,7 @@ h3 {
 }
 
 p {
-  color: #a0a0a0;
+  color: var(--text-color);
   font-size: 0.9rem;
   line-height: 1.5;
 }

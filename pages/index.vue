@@ -5,6 +5,26 @@ import Articles from "~/components/index/Articles.vue";
 import Contact from "~/components/index/Contact.vue";
 import ScrollProgress from "~/components/index/ScrollProgress.vue";
 import Timeline from "~/components/index/Timeline.vue";
+
+useSeoMeta({
+  title: "Raden Mohamad Rishwan",
+  description:
+    "Personal portfolio website of Raden Mohamad Rishwan, showcasing projects, articles, and timeline.",
+  ogTitle: "Raden Mohamad Rishwan",
+  ogDescription:
+    "Personal portfolio website of Raden Mohamad Rishwan, showcasing projects, articles, and timeline.",
+  ogImage: "https://i.ibb.co.com/gWjmQ8q/logo.png",
+  ogUrl: "https://mohamadrishwan.me",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Raden Mohamad Rishwan",
+  twitterDescription:
+    "Personal portfolio website of Raden Mohamad Rishwan, showcasing projects, articles, and timeline.",
+  twitterImage: "https://i.ibb.co.com/gWjmQ8q/logo.png",
+  twitterCreator: "@seioraswel",
+  author: "Raden Mohamad Rishwan",
+  keywords:
+    "Raden Mohamad Rishwan, Rishwan, Raden, Mohamad, Portfolio, Personal, Website, Projects, Articles, Timeline, Web Development, Mobile Development, Backend, Frontend",
+});
 </script>
 
 <template>
