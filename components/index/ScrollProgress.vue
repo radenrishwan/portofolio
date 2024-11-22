@@ -73,7 +73,7 @@ const scrollToSection = (index) => {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--hover-background);
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;

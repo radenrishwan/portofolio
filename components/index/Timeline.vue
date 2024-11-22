@@ -58,7 +58,7 @@ const timelines = [
 
 <template>
   <section id="timeline">
-    <h2 class="section-title">My Journey</h2>
+    <h2 class="section-title">My Learning Journey</h2>
     <div class="timeline-container">
       <div class="timeline-wrapper">
         <div class="timeline-line"></div>

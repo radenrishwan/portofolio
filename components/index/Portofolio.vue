@@ -157,8 +157,8 @@ p {
 }
 
 .tag {
-  background-color: #333;
-  color: var(--accent-color);
+  background: var(--primary-color);
+  color: var(--background-color);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
   font-size: 0.8rem;

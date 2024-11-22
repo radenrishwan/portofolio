@@ -64,6 +64,8 @@ onUnmounted(() => {
           </li>
         </ul>
       </div>
+
+      <ThemeToggle />
     </div>
   </nav>
 </template>
@@ -81,8 +83,8 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background: rgba(26, 26, 26, 0.8);
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+  background: var(--appbar-color) 0.8;
   backdrop-filter: blur(10px);
 }
 
