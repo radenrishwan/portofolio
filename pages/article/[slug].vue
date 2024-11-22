@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import "~/assets/css/markdown.css";
+import ArticleScrollProgress from "~/components/article/ArticleScrollProgress.vue";
 
 const route = useRoute();
 const slug = route.params.slug as string;
 
-// Fetch the content using useAsyncData and queryContent
 // @ts-ignore
 const { data: article } = await useAsyncData(slug, () =>
   // @ts-ignore
@@ -56,6 +56,7 @@ if (article.value) {
 
 <template>
   <AppBarNavigation />
+  <ArticleScrollProgress />
 
   <article v-if="article" class="article-container">
     <header class="article-header">
@@ -86,6 +87,12 @@ if (article.value) {
 </template>
 
 <style scoped>
+article {
+  max-width: 100dvw;
+  overflow: auto;
+  text-overflow: ellipsis;
+}
+
 .article-container {
   max-width: 970px;
   margin: 2rem auto;

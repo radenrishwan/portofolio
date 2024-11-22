@@ -1077,7 +1077,6 @@ kalau kamu cek repository yang udah saya kasih sebelumnya, ada file `websocket.g
 &nbsp;
 
 # References
-
-[https://pkg.go.dev/net/http](https://pkg.go.dev/net/http)
-[https://datatracker.ietf.org/doc/html/rfc2616](https://datatracker.ietf.org/doc/html/rfc2616m)
-[https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
+- [https://pkg.go.dev/net/http](https://pkg.go.dev/net/http)
+- [https://datatracker.ietf.org/doc/html/rfc2616](https://datatracker.ietf.org/doc/html/rfc2616m)
+- [https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)
