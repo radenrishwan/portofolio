@@ -13,6 +13,18 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "Raden Mohamad Rishwan",
+      script: [
+        {
+          innerHTML: `
+            (function() {
+              const theme = localStorage.getItem('theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+              if (theme === 'light') document.documentElement.classList.add('light-mode');
+            })()
+          `,
+          type: "text/javascript",
+        },
+      ],
     },
   },
 });

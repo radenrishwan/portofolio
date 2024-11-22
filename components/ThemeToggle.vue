@@ -8,6 +8,8 @@ const isDark = ref(true);
 const toggleTheme = () => {
   isDark.value = !isDark.value;
   document.documentElement.classList.toggle("light-mode");
+
+  localStorage.setItem("theme", isDark.value ? "dark" : "light");
 };
 
 onMounted(() => {
