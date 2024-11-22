@@ -57,17 +57,21 @@ useSeoMeta({
 }
 
 .scroll-section {
-  height: 100dvh;
+  min-height: 100dvh;
   scroll-snap-align: start;
 }
 
 @media (max-width: 768px) {
   .scroll-container {
     scroll-snap-type: none;
+    height: auto;
+    overflow-y: auto;
   }
 
   .scroll-section {
     scroll-snap-align: none;
+    min-height: auto;
+    padding: 4rem 0;
   }
 }
 </style>

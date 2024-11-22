@@ -133,16 +133,17 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.main-content {
+#profile {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  width: 100dvw;
+  width: 100%;
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .intro {
@@ -189,6 +190,11 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  #profile {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
   .greeting {
     font-size: 2rem;
   }

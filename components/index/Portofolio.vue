@@ -89,6 +89,7 @@ const projects: Portofolio[] = [
 <style scoped>
 #project {
   min-height: 100dvh;
+  box-sizing: border-box;
   width: 100dvw;
   padding: 2rem;
   display: flex;
@@ -174,6 +175,11 @@ p {
 }
 
 @media (max-width: 768px) {
+  #porotofolio {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
   .project-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }

@@ -26,6 +26,7 @@ const { data: articles } = await useAsyncData("articles", () => {
 <style scoped>
 #articles {
   min-height: 100dvh;
+  box-sizing: border-box;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -53,7 +54,8 @@ const { data: articles } = await useAsyncData("articles", () => {
 
 @media (max-width: 768px) {
   #articles {
-    padding: 1rem;
+    min-height: auto;
+    padding: 2rem 1rem;
   }
 
   .articles-grid {

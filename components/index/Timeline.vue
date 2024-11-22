@@ -84,6 +84,7 @@ const timelines = [
 <style scoped>
 #timeline {
   min-height: 100dvh;
+  box-sizing: border-box;
   width: 100%;
   padding: 2rem;
   display: flex;
@@ -96,6 +97,7 @@ const timelines = [
   font-size: 2rem;
   margin-bottom: 3rem;
   color: var(--accent-color);
+  text-align: center;
 }
 
 .timeline-container {
@@ -195,6 +197,11 @@ const timelines = [
 }
 
 @media (max-width: 768px) {
+  #timeline {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
   .timeline-container {
     padding: 1rem 0;
   }

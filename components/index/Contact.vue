@@ -22,6 +22,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
+  box-sizing: border-box;
   width: 100dvw;
   padding: 2rem;
   text-align: center;
@@ -58,6 +59,11 @@ a {
 }
 
 @media (max-width: 768px) {
+  #contact {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
   h1 {
     font-size: 2rem;
   }
