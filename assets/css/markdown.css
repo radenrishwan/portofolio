@@ -82,10 +82,8 @@
 
 .article-content pre {
   background-color: var(--card-color);
-  padding: 1.5em;
   border-radius: 8px;
   overflow-x: auto;
-  margin: 1.5em 0;
 }
 
 .article-content code {
@@ -173,6 +171,6 @@
   }
 
   .article-content pre {
-    padding: 1em;
+    padding: 0.75rem;
   }
 }
