@@ -2,6 +2,7 @@
 import { useRoute } from "vue-router";
 import "~/assets/css/markdown.css";
 import ArticleScrollProgress from "~/components/article/ArticleScrollProgress.vue";
+import Comment from "~/components/article/Comment.vue";
 
 const route = useRoute();
 const slug = route.params.slug as string;
@@ -82,6 +83,10 @@ if (article.value) {
 
     <div class="article-content">
       <ContentRenderer :value="article" />
+    </div>
+
+    <div class="comments-section">
+      <Comment />
     </div>
   </article>
 </template>
@@ -169,6 +174,12 @@ article {
 .article-content {
   line-height: 1.8;
   font-size: 1.1rem;
+}
+
+.comments-section {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
 }
 
 /* Responsive Design */
