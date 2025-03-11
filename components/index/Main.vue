@@ -124,7 +124,7 @@ onMounted(() => {
           animationDelay: word.animationDelay,
           animationDuration: word.animationDuration,
         }"
-        @click="repositionWord(index)"
+        @mouseover="repositionWord(index)"
       >
         {{ word.text }}
       </span>

@@ -42,20 +42,6 @@ const regex = {
   twitter: /(?:twitter|x)\.com/,
   youtube: /youtube/, // TODO: add more url type later
 };
-
-for (const key in regex) {
-  if (regex[key].test(props.href)) {
-    type = key as urlType;
-    break;
-  }
-}
-
-switch (type) {
-  case "twitter":
-  case "youtube":
-  default:
-    break;
-}
 </script>
 
 <template>
