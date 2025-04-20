@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   content: {
     highlight: {
       theme: "one-dark-pro",
-      langs: ["javascript", "typescript", "json", "bash", "dockerfile", "go"],
+      langs: ["javascript", "typescript", "json", "bash", "dockerfile", "go", "rust", "yaml", "dockerfile"],
     },
   },
   app: {

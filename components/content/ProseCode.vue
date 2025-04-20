@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CodeBlock from "./CodeBlock.vue";
+
 defineProps<{
   code: string;
   language?: string;

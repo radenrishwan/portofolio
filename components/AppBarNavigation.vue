@@ -78,7 +78,8 @@ onUnmounted(() => {
   right: 0;
   z-index: 10000;
   position: sticky;
-  padding: 1.5rem 2rem;
+  /* padding: 1.5rem 2rem; */
+  padding: 0.7rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

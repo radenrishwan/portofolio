@@ -2,7 +2,7 @@
 title: Cara Deploy Server Go ke Cloud Run
 description: "deploy aplikasi server go ke salah satu cloud platform yaitu GCP Cloud Run"
 pubDate: 2023-07-08T07:39:15.516Z
-heroImage: "https://thingstoday-3f186.web.app/assets/img/thumbnail/cara-deploy-server-go-ke-cloud-run.png"
+heroImage: "https://i.postimg.cc/pLkTnbdM/cara-deploy-server-go-ke-cloud-run.png"
 author: "Raden Mohamad Rishwan"
 short: "Cloud Run adalah layanan yang disediakan oleh Google Cloud Platform (GCP) yang memungkinkan Anda menjalankan kontainer Docker secara serverless. Dalam konteks serverless, Anda tidak perlu mengelola infrastruktur server secara langsung. Salah satu fitur utama Cloud Run adalah skalabilitas horizontal otomatis. Ini berarti Cloud Run akan secara otomatis menangani peningkatan atau penurunan permintaan dengan menambah atau mengurangi jumlah instance kontainer yang dijalankan. Anda hanya akan membayar untuk sumber daya yang digunakan selama eksekusi kode, berdasarkan durasi dan jumlah permintaan yang diterima."
 tags: ["gcp", "golang", "programming"]
@@ -60,7 +60,7 @@ export PORT=8080 && go run main.go
 # Membuat Dockerfile
 Untuk melakukan deploy ke Cloud Run, kita perlu membuat image Docker terlebih dahulu. Untuk membuat image Docker, kita perlu membuat file `Dockerfile` dengan isi sebagai berikut:
 
-```Dockerfile
+```dockerfile
 FROM golang:alpine
 
 WORKDIR /app
@@ -102,12 +102,12 @@ Selanjutnya buka di browser dengan url `localhost:8080` dan hasilnya akan sama s
 # Tips membuat docker image pada go
 Sebenernya, kamu tidak perlu lagi memerlukan golang pada server jika sudah memiliki binary file yang sudah dibuild. Hal ini dapat membuat image kamu menjadi lebih kecil dibanding sebelumnya. Untuk melakukannya, silahkan ubah kode Dockerfile menjadi seperti berikut:
 
-```Dockerfile
+```dockerfile
 FROM golang:alpine AS builder
 
 WORKDIR /app
 COPY . .
-RUN go build -o main .
+RUN go build -o main
 
 FROM alpine
 WORKDIR /app
