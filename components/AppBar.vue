@@ -158,7 +158,7 @@ const scrollToSection = (sectionId) => {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1.5rem 2rem;
+  padding: 0.7rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
