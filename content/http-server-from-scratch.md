@@ -2,7 +2,7 @@
 title: HTTP Framework from scratch tanpa library
 description: "Bikin HTTP Framework kaya expressjs tanap library"
 pubDate: 2024-08-29T05:28:57.953Z
-heroImage: "https://i.ibb.co.com/JHD4Tjn/HTTP-Version-Status-Code.png"
+heroImage: "https://i.postimg.cc/c1TQZjQ2/http-framework-from-scratch.png"
 author: Raden Mohamad Rishwan
 short: Pernah ga sih kepikiran lagi bikin web atau API. Biasanya kita langsung pake library kaya express di javascript atau golang bisa pake gin. Tapi, gimana kalau buat sendiri ?. Nah, di artikel ini saya bakalan coba sharing yang saya pelajarin beberapa minggu belakangan ini (pada saat artikel ditulis) yaitu bikin HTTP Server tanpa library apapun.
 tags:

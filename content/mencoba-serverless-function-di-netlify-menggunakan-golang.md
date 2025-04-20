@@ -2,7 +2,7 @@
 title: Mencoba Serverless Function di Netlify Menggunakan Golang
 description: "nyobain deploy serverless function di netlify pake golang"
 pubDate: 2023-01-31T06:23:57.784Z
-heroImage: "https://raw.githubusercontent.com/radenrishwan/backup-articles/master/articles/Mencoba%20Serverless%20Function%20di%20Netlify%20Menggunakan%20Golang/images/Mencoba%20Serverless%20Function%20di%20Netlify%20Menggunakan%20Golang.jpg"
+heroImage: "https://i.postimg.cc/nhVVxRGR/mencoba-serverless-function-di-netlify-menggunakan-golang.png"
 author: "Raden Mohamad Rishwan"
 short: "Netlify merupakan salah satu website yang menyediakan layanan gratis seperti hosting untuk web statis, serverless function, user authentications, dll. dimana netlify ini menyediakannya gratis. namun, tentu ada limit penggunaanya. kamu dapat melihatnya disini. dimana pada kali ini saya akan membahasa mengenai serverless function di netlify yang dapat kamu coba secara gratis."
 tags: ["netlify", "programming", "golang"]

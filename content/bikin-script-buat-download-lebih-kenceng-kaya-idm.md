@@ -2,7 +2,7 @@
 title: Bikin script buat download lebih kenceng kaya IDM
 description: "bikin script download menggunakan parrarel method kaya idm"
 pubDate: 2024-03-19T10:40:47.884Z
-heroImage: "https://thingstoday-3f186.web.app/assets/img/thumbnail/cara-deploy-server-go-ke-cloud-run.png"
+heroImage: "https://i.postimg.cc/KzjmTRHn/bikin-script-kaya-idm.png"
 author: Raden Mohamad Rishwan
 short: Siapa sih yang gatau IDM?. kayanya aplikasi ini terkenal banget bagi orang - orang yang kerjaanya download di warnet tau aplikasi ini 😅. Aplikasi ini punya banyak fitur kaya download resume, bisa download file kaya video youtube langsung, bisa ganti - ganti proxy, dll.
 tags:

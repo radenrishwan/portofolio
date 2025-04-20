@@ -3,7 +3,7 @@ title: SMTP From Scratch - Writing SMTP Server (Part 1)
 description: "Write our own SMTP server & client without any external libraries"
 pubDate: 2025-04-20T20:13:44+07:00
 author: Raden Mohamad Rishwan
-heroImage: "https://i.ibb.co.com/JHD4Tjn/HTTP-Version-Status-Code.png"
+heroImage: "https://i.postimg.cc/1XSMTq1F/thumbnail-SMTP.png"
 short: Have you ever thought about how you send and receive email?. Did you ever wonder how this works behind the scenes?. In this article, we're going to write both an SMTP server and client based on RFC5321.
 tags:
     - programming
