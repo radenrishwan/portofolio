@@ -99,7 +99,7 @@ article {
 }
 
 .article-container {
-  max-width: 970px;
+  max-width: 65dvw;
   margin: 2rem auto;
   padding: 0 1.5rem;
 }
@@ -186,6 +186,7 @@ article {
 @media (max-width: 768px) {
   .article-container {
     margin: 1rem auto;
+    max-width: 100dvw;
   }
 
   .article-title {

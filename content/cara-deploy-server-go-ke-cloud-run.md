@@ -60,7 +60,7 @@ export PORT=8080 && go run main.go
 # Membuat Dockerfile
 Untuk melakukan deploy ke Cloud Run, kita perlu membuat image Docker terlebih dahulu. Untuk membuat image Docker, kita perlu membuat file `Dockerfile` dengan isi sebagai berikut:
 
-```Dockerfile
+```dockerfile
 FROM golang:alpine
 
 WORKDIR /app
@@ -102,12 +102,12 @@ Selanjutnya buka di browser dengan url `localhost:8080` dan hasilnya akan sama s
 # Tips membuat docker image pada go
 Sebenernya, kamu tidak perlu lagi memerlukan golang pada server jika sudah memiliki binary file yang sudah dibuild. Hal ini dapat membuat image kamu menjadi lebih kecil dibanding sebelumnya. Untuk melakukannya, silahkan ubah kode Dockerfile menjadi seperti berikut:
 
-```Dockerfile
+```dockerfile
 FROM golang:alpine AS builder
 
 WORKDIR /app
 COPY . .
-RUN go build -o main .
+RUN go build -o main 
 
 FROM alpine
 WORKDIR /app
