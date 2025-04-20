@@ -10,6 +10,7 @@
   --card-color: #252525;
   --hover-background: #2d2d2d;
   --appbar-color: #1a1a1a;
+  --card-background: #1a1a1a;
 }
 
 :root.light-mode {
@@ -20,6 +21,7 @@
   --card-color: #ffffff;
   --hover-background: #e4e6e9;
   --appbar-color: #ffffff;
+  --card-background: #ffffff;
 }
 
 * {

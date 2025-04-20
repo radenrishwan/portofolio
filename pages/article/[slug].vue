@@ -7,11 +7,15 @@ import Comment from "~/components/article/Comment.vue";
 const route = useRoute();
 const slug = route.params.slug as string;
 
-// @ts-ignore
 const { data: article } = await useAsyncData(slug, () =>
   // @ts-ignore
   queryContent().where({ slug: slug }).findOne(),
 );
+
+const { data: articles } = await useAsyncData("articles", () => {
+  // @ts-ignore
+  return queryContent().sort({ pubDate: -1 }).limit(3).find();
+});
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("en-US", {
@@ -83,6 +87,32 @@ if (article.value) {
 
     <div class="article-content">
       <ContentRenderer :value="article" />
+    </div>
+
+    <div class="newest-articles-section">
+      <h2 class="section-title">You might also like</h2>
+      <div class="newest-articles">
+        <NuxtLink
+          v-for="newestArticle in articles"
+          :key="newestArticle.slug"
+          :to="`/article/${newestArticle.slug}`"
+          class="article-card"
+        >
+          <div class="article-card-image-container">
+            <img
+              :src="newestArticle.heroImage || '/images/default-article.jpg'"
+              :alt="newestArticle.title"
+              class="article-card-image"
+            />
+          </div>
+          <div class="article-card-content">
+            <h3 class="article-card-title">{{ newestArticle.title }}</h3>
+            <p class="article-card-date">
+              {{ formatDate(newestArticle.pubDate) }}
+            </p>
+          </div>
+        </NuxtLink>
+      </div>
     </div>
 
     <div class="comments-section">
@@ -176,6 +206,82 @@ article {
   font-size: 1.1rem;
 }
 
+.newest-articles-section {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.newest-articles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.article-card {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-color);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  text-decoration: none;
+  height: 100%;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.article-card-image-container {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.article-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-card-image {
+  transform: scale(1.05);
+}
+
+.article-card-content {
+  padding: 1rem;
+}
+
+.article-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-card-date {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  margin: 0;
+}
+
 .comments-section {
   margin-top: 4rem;
   padding-top: 2rem;
@@ -202,6 +308,15 @@ article {
   .article-content {
     font-size: 1rem;
   }
+
+  .newest-articles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -217,6 +332,14 @@ article {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  .newest-articles {
+    grid-template-columns: 1fr;
+  }
+
+  .article-card-image-container {
+    height: 180px;
   }
 }
 </style>
