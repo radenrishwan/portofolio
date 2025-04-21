@@ -72,11 +72,17 @@ const handleSectionClick = (index) => {
 };
 
 onMounted(() => {
-  setTimeout(() => {
-    sections.value = getSections();
-    window.addEventListener("scroll", updateActiveSection);
-    updateActiveSection();
-  }, 500);
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      sections.value = getSections();
+      if (sections.value.length > 0) {
+        window.addEventListener("scroll", updateActiveSection, {
+          passive: true,
+        });
+        updateActiveSection();
+      }
+    }, 300);
+  });
 });
 
 onUnmounted(() => {
@@ -109,36 +115,50 @@ const getSectionIndent = (type) => {
 
 <template>
   <div class="article-scroll-progress-container">
-    <div class="table-of-contents" v-show="isTableOfContentsVisible">
-      <div class="toc-header">
-        <h3>Table of Contents</h3>
-      </div>
-      <div class="toc-content">
-        <div
-          v-for="(section, index) in sections"
-          :key="index"
-          class="toc-item"
-          :class="{ active: index === activeSectionIndex }"
-          @click="handleSectionClick(index)"
-          :style="{
-            paddingLeft: `${getSectionIndent(section.type) * 16 + 8}px`,
-          }"
-        >
+    <!-- Wrap TOC with Transition and use v-if -->
+    <Transition name="toc-fade">
+      <div
+        class="table-of-contents"
+        v-if="isTableOfContentsVisible"
+        role="navigation"
+        aria-label="Table of Contents"
+      >
+        <div class="toc-header">
+          <h3>Table of Contents</h3>
+        </div>
+        <div class="toc-content">
           <div
-            class="toc-item-marker"
-            :style="{ background: getSectionStyle(section.type).color }"
-          ></div>
-          <span class="toc-item-text">{{ section.text }}</span>
+            v-for="(section, index) in sections"
+            :key="index"
+            class="toc-item"
+            :class="{ active: index === activeSectionIndex }"
+            @click="handleSectionClick(index)"
+            :style="{
+              paddingLeft: `${getSectionIndent(section.type) * 16 + 8}px`,
+            }"
+            role="button"
+            tabindex="0"
+            @keydown.enter="handleSectionClick(index)"
+            @keydown.space="handleSectionClick(index)"
+          >
+            <div
+              class="toc-item-marker"
+              :style="{ background: getSectionStyle(section.type).color }"
+            ></div>
+            <span class="toc-item-text">{{ section.text }}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
 
     <div class="article-scroll-progress">
       <button
         class="toc-toggle"
         @click="toggleTableOfContents"
         :class="{ active: isTableOfContentsVisible }"
-        title="Table of Contents"
+        :aria-expanded="isTableOfContentsVisible"
+        aria-controls="table-of-contents"
+        title="Toggle Table of Contents"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -150,6 +170,7 @@ const getSectionIndent = (type) => {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
+          aria-hidden="true"
         >
           <line x1="4" y1="6" x2="20" y2="6"></line>
           <line x1="4" y1="12" x2="20" y2="12"></line>
@@ -168,6 +189,11 @@ const getSectionIndent = (type) => {
             width: getSectionStyle(section.type).size,
             height: getSectionStyle(section.type).size,
           }"
+          role="button"
+          tabindex="0"
+          :aria-label="`Scroll to section: ${section.text}`"
+          @keydown.enter="scrollToSection(index)"
+          @keydown.space="scrollToSection(index)"
         >
           <div
             class="dot-inner"
@@ -208,9 +234,12 @@ const getSectionIndent = (type) => {
   padding: 0;
 }
 
-.toc-toggle:hover {
+.toc-toggle:hover,
+.toc-toggle:focus-visible {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 .toc-toggle.active {
@@ -231,13 +260,15 @@ const getSectionIndent = (type) => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
   z-index: 1001;
+
+  transform-origin: top right;
 }
 
 .toc-header {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+  flex-shrink: 0;
 }
 
 .toc-header h3 {
@@ -250,7 +281,6 @@ const getSectionIndent = (type) => {
 .toc-content {
   padding: 8px 0;
   overflow-y: auto;
-  max-height: calc(70vh - 48px);
   scrollbar-width: thin;
   scrollbar-color: var(--accent-color) var(--hover-background);
 }
@@ -261,6 +291,7 @@ const getSectionIndent = (type) => {
 
 .toc-content::-webkit-scrollbar-track {
   background: var(--hover-background, rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
 }
 
 .toc-content::-webkit-scrollbar-thumb {
@@ -279,13 +310,20 @@ const getSectionIndent = (type) => {
   color: var(--text-color, #333);
 }
 
-.toc-item:hover {
+.toc-item:hover,
+.toc-item:focus-visible {
   background: var(--hover-background, rgba(0, 0, 0, 0.05));
+  outline: none;
 }
 
 .toc-item.active {
   background: var(--hover-background, rgba(0, 0, 0, 0.05));
   font-weight: 500;
+  color: var(--primary-color);
+}
+
+.toc-item.active .toc-item-marker {
+  transform: scale(1.3);
 }
 
 .toc-item-marker {
@@ -294,6 +332,7 @@ const getSectionIndent = (type) => {
   border-radius: 50%;
   margin-right: 8px;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .toc-item-text {
@@ -302,9 +341,8 @@ const getSectionIndent = (type) => {
   text-overflow: ellipsis;
 }
 
-/* Progress dots */
 .article-scroll-progress {
-  max-height: calc(70vh - 30px);
+  max-height: calc(70vh - 30px - 0.75rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -313,17 +351,20 @@ const getSectionIndent = (type) => {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
   padding: 0.75rem 0.5rem;
+  overflow: hidden;
 }
 
 .dots-container {
-  max-height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   align-items: center;
   scrollbar-width: none;
+  padding-right: 2px;
+  padding-left: 2px;
   padding-bottom: 0.5rem;
+  width: 100%;
 }
 
 .dots-container::-webkit-scrollbar {
@@ -336,14 +377,19 @@ const getSectionIndent = (type) => {
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-/* .progress-dot:hover {
+.progress-dot:hover,
+.progress-dot:focus-visible {
   transform: scale(1.2);
-} */
+  outline: none;
+}
 
 .dot-inner {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -353,6 +399,25 @@ const getSectionIndent = (type) => {
 
 .progress-dot.active .dot-inner {
   transform: scale(1);
+}
+
+.toc-fade-enter-active,
+.toc-fade-leave-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.toc-fade-enter-from,
+.toc-fade-leave-to {
+  opacity: 0;
+  transform: translateX(15px) scale(0.95);
+}
+
+.toc-fade-enter-to,
+.toc-fade-leave-from {
+  opacity: 1;
+  transform: translateX(0) scale(1);
 }
 
 @media (max-width: 768px) {
@@ -365,37 +430,51 @@ const getSectionIndent = (type) => {
     max-height: 60vh;
     right: calc(100% + 10px);
   }
-
-  .toc-content {
-    max-height: calc(60vh - 48px);
-  }
 }
 
 @media (max-width: 576px) {
   .article-scroll-progress-container {
-    bottom: 2rem;
+    bottom: 1.5rem;
     top: auto;
     transform: none;
     right: 1rem;
-  }
-
-  .table-of-contents {
-    position: fixed;
-    top: auto;
-    bottom: 5rem;
-    right: 1rem;
-    left: 1rem;
-    width: auto;
-    max-width: 320px;
-    max-height: 50vh;
-  }
-
-  .toc-content {
-    max-height: calc(50vh - 48px);
+    z-index: 1000;
+    align-items: flex-end;
   }
 
   .article-scroll-progress {
+    order: 2;
     padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .toc-toggle {
+    margin-bottom: 0;
+  }
+
+  .table-of-contents {
+    order: 1;
+    position: relative;
+    right: 0;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    width: 240px;
+    max-width: calc(100vw - 2rem);
+    max-height: 50vh;
+    transform-origin: bottom right;
+  }
+
+  .toc-fade-enter-from,
+  .toc-fade-leave-to {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+
+  .toc-fade-enter-to,
+  .toc-fade-leave-from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .dots-container {
