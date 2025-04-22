@@ -3,11 +3,23 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   css: ["~/assets/css/index.css"],
-  modules: ["@nuxt/content"],
+  modules: ["@nuxt/content", "@nuxtjs/robots"],
+  plugins: ["~/plugins/vercel-analytics.client.ts"],
   content: {
     highlight: {
       theme: "one-dark-pro",
-      langs: ["javascript", "typescript", "json", "bash", "dockerfile", "go", "rust", "yaml", "dockerfile"],
+      langs: [
+        "javascript",
+        "typescript",
+        "json",
+        "bash",
+        "dockerfile",
+        "go",
+        "rust",
+        "yaml",
+        "dockerfile",
+        "toml",
+      ],
     },
   },
   app: {
